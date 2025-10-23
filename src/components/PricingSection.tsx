@@ -106,31 +106,19 @@ export function PricingSection() {
                 <li className="flex items-start">
                   <CheckIcon className="w-4 h-4 sm:w-6 sm:h-6 text-white flex-shrink-0 mr-2 sm:mr-3" />
                   <span className="text-xs sm:text-base text-gray-300">
-                    Unlimited access to all features
+                    Unlimited Conversation
                   </span>
                 </li>
                 <li className="flex items-start">
                   <CheckIcon className="w-4 h-4 sm:w-6 sm:h-6 text-white flex-shrink-0 mr-2 sm:mr-3" />
                   <span className="text-xs sm:text-base text-gray-300">
-                    Priority technical support
+                    Real-time Database Updates
                   </span>
                 </li>
                 <li className="flex items-start">
                   <CheckIcon className="w-4 h-4 sm:w-6 sm:h-6 text-white flex-shrink-0 mr-2 sm:mr-3" />
                   <span className="text-xs sm:text-base text-gray-300">
-                    Advanced data analysis reports
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <CheckIcon className="w-4 h-4 sm:w-6 sm:h-6 text-white flex-shrink-0 mr-2 sm:mr-3" />
-                  <span className="text-xs sm:text-base text-gray-300">
-                    Team collaboration features
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <CheckIcon className="w-4 h-4 sm:w-6 sm:h-6 text-white flex-shrink-0 mr-2 sm:mr-3" />
-                  <span className="text-xs sm:text-base text-gray-300">
-                    API access
+                    Exclusive Professional Database
                   </span>
                 </li>
               </ul>
