@@ -1,6 +1,6 @@
 import NextAuth, { AuthOptions } from 'next-auth'
 
-export const authOptions = {
+const authOptions: AuthOptions = {
   providers: [
     {
       id: 'datail-oauth',
@@ -11,7 +11,7 @@ export const authOptions = {
         params: {
           scope: 'read',
           response_type: 'code',
-          redirect_uri: 'http://www.baidu.com',
+          redirect_uri: process.env.NEXTAUTH_URL || 'http://localhost:3000',
           state: 'casdoor',
         },
       },
@@ -33,8 +33,9 @@ export const authOptions = {
     signIn: '/auth/signin',
     error: '/auth/error',
   },
+  secret: process.env.NEXTAUTH_SECRET,
 }
 
-const handler = NextAuth(authOptions as AuthOptions)
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
