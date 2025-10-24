@@ -7,10 +7,12 @@ export const authOptions = {
       name: 'DataTail OAuth',
       type: 'oauth',
       authorization: {
-        url: 'https://oauth2.datail.ai/oauth/authorize',
+        url: 'https://oauth2.datail.ai/login/oauth/authorize',
         params: {
           scope: 'read',
           response_type: 'code',
+          redirect_uri: 'http://www.baidu.com',
+          state: 'casdoor',
         },
       },
       token: 'https://oauth2.datail.ai/oauth/access_token',
