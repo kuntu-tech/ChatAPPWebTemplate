@@ -2,8 +2,17 @@
 import React from 'react';
 import { ArrowRightIcon, LogInIcon, UserPlusIcon } from 'lucide-react';
 import { AuroraBackground } from './ui/aurora-background';
+import { signIn } from 'next-auth/react';
 
 export function HeroSection() {
+  const handleLogin = () => {
+    console.log('Login button clicked');
+    // 使用NextAuth的signIn方法
+    signIn('datail-oauth', {
+      callbackUrl: '/dashboard',
+    });
+  };
+
   return (
     <AuroraBackground>
       {/* Navigation Bar */}
@@ -19,11 +28,17 @@ export function HeroSection() {
               </span>
             </div>
             <div className="flex items-center space-x-3">
-              <button className="flex items-center space-x-2 px-4 py-2 text-black/80 hover:text-black transition-colors">
+              <button 
+                onClick={handleLogin}
+                className="flex items-center space-x-2 px-4 py-2 text-black/80 hover:text-black transition-colors"
+              >
                 <LogInIcon className="w-4 h-4" />
                 <span>Login</span>
               </button>
-              <button className="flex items-center space-x-2 px-4 py-2 bg-black/20 text-black rounded-lg hover:bg-black/30 hover:shadow-lg transition-all backdrop-blur-sm">
+              <button 
+                onClick={handleLogin}
+                className="flex items-center space-x-2 px-4 py-2 bg-black/20 text-black rounded-lg hover:bg-black/30 hover:shadow-lg transition-all backdrop-blur-sm"
+              >
                 <UserPlusIcon className="w-4 h-4" />
                 <span>Sign Up</span>
               </button>

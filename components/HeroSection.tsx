@@ -9,8 +9,10 @@ export function HeroSection() {
 
   const handleLogin = () => {
     console.log('Login button clicked');
-    // 直接重定向到NextAuth登录页面
-    window.location.href = '/api/auth/signin/datail-oauth';
+    // 使用NextAuth的signIn方法
+    signIn('datail-oauth', {
+      callbackUrl: '/dashboard',
+    });
   };
 
   const handleLogout = () => {
