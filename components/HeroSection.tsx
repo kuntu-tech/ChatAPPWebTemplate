@@ -1,9 +1,24 @@
 "use client";
 import React from 'react';
-import { ArrowRightIcon, LogInIcon, UserPlusIcon } from 'lucide-react';
+import { ArrowRightIcon, LogInIcon, UserPlusIcon, LogOutIcon, UserIcon } from 'lucide-react';
 import { AuroraBackground } from './ui/aurora-background';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export function HeroSection() {
+  const { data: session, status } = useSession();
+
+  const handleLogin = () => {
+    console.log('Login button clicked');
+    // 直接重定向到NextAuth登录页面
+    window.location.href = '/api/auth/signin/datail-oauth';
+  };
+
+  const handleLogout = () => {
+    signOut({
+      callbackUrl: '/',
+    });
+  };
+
   return (
     <AuroraBackground>
       {/* Navigation Bar */}
@@ -18,15 +33,52 @@ export function HeroSection() {
                 App Name
               </span>
             </div>
+            
             <div className="flex items-center space-x-3">
-              <button className="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white transition-colors">
-                <LogInIcon className="w-4 h-4" />
-                <span>Login</span>
-              </button>
-              <button className="flex items-center space-x-2 px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 hover:shadow-lg transition-all backdrop-blur-sm">
-                <UserPlusIcon className="w-4 h-4" />
-                <span>Sign Up</span>
-              </button>
+              {status === 'loading' ? (
+                <div className="animate-pulse text-white/60">Loading...</div>
+              ) : session ? (
+                <>
+                  <div className="flex items-center space-x-2">
+                    {session.user?.image ? (
+                      <img 
+                        src={session.user.image} 
+                        alt={session.user.name || 'User'} 
+                        className="w-8 h-8 rounded-full"
+                      />
+                    ) : (
+                      <UserIcon className="w-8 h-8 text-white/80" />
+                    )}
+                    <span className="text-white hidden md:block">
+                      {session.user?.name || session.user?.email}
+                    </span>
+                  </div>
+                  <button 
+                    onClick={handleLogout}
+                    className="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white transition-colors"
+                  >
+                    <LogOutIcon className="w-4 h-4" />
+                    <span>Logout</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button 
+                    onClick={handleLogin}
+                    className="flex items-center space-x-2 px-4 py-2 text-white/80 hover:text-white transition-colors"
+                  >
+                    <LogInIcon className="w-4 h-4" />
+                    <span>Login</span>
+                  </button>
+                  <button 
+                    onClick={handleLogin}
+                    className="flex items-center space-x-2 px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 hover:shadow-lg transition-all backdrop-blur-sm"
+                  >
+                    <UserPlusIcon className="w-4 h-4" />
+                    <span>Sign Up</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
