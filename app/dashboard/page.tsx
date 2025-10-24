@@ -1,6 +1,42 @@
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../api/auth/[...nextauth]/route'
 import { redirect } from 'next/navigation'
+import { AuthOptions } from 'next-auth'
+
+const authOptions: AuthOptions = {
+  providers: [
+    {
+      id: 'datail-oauth',
+      name: 'DataTail OAuth',
+      type: 'oauth' as const,
+      authorization: {
+        url: 'https://oauth2.datail.ai/login/oauth/authorize',
+        params: {
+          scope: 'read',
+          response_type: 'code',
+          redirect_uri: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+          state: 'casdoor',
+        },
+      },
+      token: 'https://oauth2.datail.ai/oauth/access_token',
+      userinfo: 'https://oauth2.datail.ai/api/user',
+      clientId: process.env.DATAIL_CLIENT_ID || '8b2bbb91da9609df2750',
+      clientSecret: process.env.DATAIL_CLIENT_SECRET,
+      profile(profile: { id: string; name?: string; username?: string; email?: string; avatar_url?: string }) {
+        return {
+          id: profile.id,
+          name: profile.name || profile.username,
+          email: profile.email,
+          image: profile.avatar_url,
+        }
+      },
+    },
+  ],
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/error',
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+}
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions)

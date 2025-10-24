@@ -19,7 +19,7 @@ const authOptions: AuthOptions = {
       userinfo: 'https://oauth2.datail.ai/api/user',
       clientId: process.env.DATAIL_CLIENT_ID || '8b2bbb91da9609df2750',
       clientSecret: process.env.DATAIL_CLIENT_SECRET,
-      profile(profile: any) {
+      profile(profile: { id: string; name?: string; username?: string; email?: string; avatar_url?: string }) {
         return {
           id: profile.id,
           name: profile.name || profile.username,
